@@ -1,0 +1,7 @@
+<% layout('layouts/boilerplate') %>
+
+
+<h1>Temporary home page</h1>
+<% if(req.isAuthenticated()){ %> 
+<h2>Welcome <%= req.user.username %> </h2>
+<% } %> 
