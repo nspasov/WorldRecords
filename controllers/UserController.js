@@ -1,6 +1,8 @@
 const User = require('../models/UserModel');
 const Role = require('../models/RoleModel');
+const UserService = require('../services/UserService');
 const log = require('npmlog');
+
 module.exports.renderLoginForm = (req,res) => {
     res.render('users/login');
 }
@@ -20,11 +22,7 @@ module.exports.register = async (req, res, next) => {
     try{
 
         const {email, username, password} = req.body;
-        const role = await Role.findOne({roleType: 'user'});
-        const roleId = role._id;
-        const user = new User({email, username, roleId});         
-        const registeredUser = await User.register(user, password);
-        
+        const registeredUser = await UserService.registerUser(email, username, password);
         req.login(registeredUser, err => {
             if(err) return next(err);
             req.flash('success',`Nice to meet you, ${username}!`);
@@ -41,7 +39,7 @@ module.exports.register = async (req, res, next) => {
 
 }
 
-module.exports.logout = (req,res) => {
+module.exports.logout = (req,res, next) => {
 
    const username = req.user.username;
 
