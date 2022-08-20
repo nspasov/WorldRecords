@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const connectDb = require('../db-connect');
 const Role = require('../models/RoleModel');
 
-connectDb(27017);
+connectDb(process.env.MONGO_PORT);
 
 const seedRoles = async() => {
     await Role.deleteMany({});
