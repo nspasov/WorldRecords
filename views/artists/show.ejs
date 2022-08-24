@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+
+  
+
+    <div class="row">
+        <div class="col-9">
+
+            <div class="card mb-3">
+
+                <div class="card-body">
+                  <img class="card-img-top" src="<%= artist.photo %>"> 
+                  <h1 class="card-title"><%= artist.name %></h1>
+                  <p class="card-text"><%= artist.description %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  
+                  <li class="list-group-item text-muted">Added by: <%= artist.uploader.username %></li>
+                  
+                </ul>
+                <% if( currentUser && artist.uploader.equals(currentUser._id)){ %>
+                  <div class="card-body">
+                    <a class="card-link btn btn-info" href="/artists/<%= artist._id%>/edit">Edit</a>
+                    <form class="d-inline" action="/artists/<%= artist._id %>?_method=DELETE" method="POST">
+                      <button class="btn btn-danger">Delete</button>
+                    </form>
+                  </div>   
+                <% } %>  
+              </div>
+              
+        </div>
+
+        <div class="col-3">
+
+            <div id="albumCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <% artist.albums.forEach((album, i) => { %> 
+                  <div class="carousel-item  <%= i === 0 ? 'active' : '' %>">
+                    <h5><%= album.name %></h5>
+                    <h6><%= album.releaseYear %></h6>
+                    <a href="#"><img src="<%= album.coverPhoto %>" class="d-block w-100" alt="<%= album.name %> cover"></a>
+                  </div>
+                  <% }); %> 
+                </div>
+                <% if(artist.albums.length > 1){ %> 
+                <button class="carousel-control-prev" type="button" data-bs-target="#albumCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#albumCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+                <% } %> 
+              </div> 
+    
+
+        </div>
+
+    </div>
+
+
+
+<!-- <script>
+  const mapToken = '%- process.env.MAPBOX_TOKEN %>'; // passes the token to external js 
+  const campground = %- JSON.stringify(campground) %>;
+</script> -->
+
+
+
+    
+
+
+

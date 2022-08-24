@@ -3,7 +3,6 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const express = require('express');
-const app = express();
 const connectDb = require('./db-connect');
 const path = require('path');
 const methodOverrride = require('method-override');
@@ -18,13 +17,18 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/UserModel');
 const Role = require('./models/RoleModel');
 const userRoutes = require('./routes/UserRoutes');
+const artistRoutes = require('./routes/ArtistRoutes');
+const albumRoutes = require('./routes/AlbumRoutes');
+const reviewRoutes = require('./routes/ReviewRoutes');
 
 connectDb(process.env.MONGO_PORT);
+
+const app = express();
 
 app.engine('ejs', ejsMate );
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverrride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,6 +52,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next) => {
+
     res.locals.currentUser = req.user; 
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -55,8 +60,11 @@ app.use((req,res,next) => {
 });
 
 
-app.use('/', userRoutes);
 
+app.use('/artists/', artistRoutes);
+//app.use('/albums/', albumRoutes);
+//app.use('/albums/:id/reviews', reviewRoutes);
+app.use('/', userRoutes);
 
 app.get('/', async (req,res) => {
     res.render('home', {req});
@@ -64,7 +72,7 @@ app.get('/', async (req,res) => {
 
 
 app.all('*', (req,res,next) => {
-    next(new ExpressError('Not foundssss', 404))
+    next(new ExpressError('Not found', 404));
 });
 
 app.use((err, req, res, next) => {

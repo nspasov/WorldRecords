@@ -7,7 +7,10 @@ const ArtistSchema = new Schema({
         required: true
     },
     photo: String,
-    description: String,
+    description: {
+        type: String,
+        required: true
+    },
     albums: [
         {
             type: Schema.Types.ObjectId,
