@@ -2,53 +2,78 @@ const User = require('../models/UserModel');
 const Artist = require('../models/ArtistModel');
 const AlbumService = require('../services/AlbumService');
 const log = require('npmlog');
+const ExpressError = require('../utils/ExpressError');
 
-const createArtist = async (body, uploaderId) => {
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({storage});
 
-        const artist = new Artist(body);
-        artist.uploader = uploaderId;
-        await artist.save();
+const createArtist = async (body, uploaderId, file) => {
 
-        return artist;
+    const artist = new Artist(body);
+    artist.uploader = uploaderId;
+    //artist.photo = {url: file.path, filename: file.filename};
+    if(file)
+        artist.photo = file.path;
+        
+    await artist.save();
+
+    return artist;
 }
 
 const findArtist = async(id) => {
+        
+
     const artist = Artist.findById(id).populate('uploader').populate('albums');
-    return artist;
+
+    if(artist)
+        return artist;
+    
+
+    throw new ExpressError('Artist not found', 400);
+    
 }
 
 const findAllArtists = async () => {
-        const artists = Artist.find({});
+        
+    const artists = Artist.find({});
+
+    if(artists)
         return artists;
+
+    throw new ExpressError('Artists not found', 400);
+        
 }
 
-const editArtist = async(id, body) => {
-
+const editArtist = async(id, body, file) => {
+        
     const artist = await Artist.findByIdAndUpdate(id, body);
+    if(file)
+        artist.photo = file.path;
 
-    
-            // const images = req.files.map(f => ({url: f.path, filename: f.filename}));
-            // campground.images.push(...images);
-    
-            // if(req.body.deleteImage){
-    
-            //     for(let filename of req.body.deleteImages){
-            //        await cloudinary.uploader.destroy(filename);
-            //     }
-            //     await campground.updateOne({ $pull: {images: {filename: {$in: req.body.deleteImages}}} });
-            // }
-    
-    await artist.save();
-    return artist;
+    if(artist){
+        await artist.save();
+        return artist;
+    }
+        
+    throw new ExpressError('Artists not found', 400);           
+
 }
 
 const deleteArtist = async (id) => {
-        const artist = await Artist.findById(id);
+    const artist = await Artist.findById(id);
+    if(artist){
         await AlbumService.deleteAlbumsByArtist(artist._id);
         await Artist.findByIdAndDelete(id);
+    }else{
+        throw new ExpressError('Artist not found', 400);
+    }
+    
+    
+
 }
 
-module.exports = {
+module.exports = {  
     createArtist,
     editArtist,
     deleteArtist,

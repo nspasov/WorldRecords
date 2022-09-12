@@ -32,7 +32,11 @@ module.exports.createArtist = async (req,res) => {
     try{
         const body = req.body.artist;
         const userId = req.user._id;
-        const artist = await artistService.createArtist(body, userId);
+        
+        const file = req.file;
+
+        const artist = await artistService.createArtist(body, userId, file);
+        
 
         req.flash('success', `${artist.name} successfully created.`);
         res.redirect(`/artists/${artist._id}`);
@@ -85,7 +89,8 @@ module.exports.editArtist = async (req, res) => {
 
 
         const id = req.params.id;
-        const artist = await artistService.editArtist(id, {...req.body.artist});
+        const file = req.file;
+        const artist = await artistService.editArtist(id, {...req.body.artist}, file);
     
         req.flash('success', `${artist.name} successfully updated`);
         res.redirect(`/artists/${artist._id}`);

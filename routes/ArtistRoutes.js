@@ -22,7 +22,7 @@ router.get('/:id/edit', isLoggedIn, isArtistUploader, catchAsync(artistControlle
 
 //router.put('/:id', isLoggedIn, isArtistUploader, upload.single('image'), validateArtist, catchAsync(artistController.editArtist));
 
-router.put('/:id',  isLoggedIn, isArtistUploader, validateArtist, catchAsync(artistController.editArtist));
+router.put('/:id',  isLoggedIn, isArtistUploader,upload.single('image'), validateArtist, catchAsync(artistController.editArtist));
 
 
 router.delete('/:id', isLoggedIn, isArtistUploader, catchAsync(artistController.deleteArtist));
