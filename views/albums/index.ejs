@@ -1,0 +1,30 @@
+
+    <% layout('layouts/boilerplate') %> 
+
+
+    <h1>All Albums</h1>
+    <div><a href="/albums/new">Add Album</a></div>
+
+
+
+
+            <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+
+
+                <% for(let album of albums){ %> 
+
+                    <div style="margin-bottom: 25px; margin-top: 25px;" class="col-md-3 col-sm-6">
+                        <div class="img-thumbnail">
+                            <a href="/albums/<%= album._id%>"> <img class="img-fluid" src="<%= album.coverPhoto %>"></a>
+                        </div>
+                                                          
+                    </div>
+
+                <% } %> 
+    
+        </div>
+
+
+
+
+

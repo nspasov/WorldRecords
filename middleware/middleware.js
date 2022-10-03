@@ -1,5 +1,5 @@
 const ExpressError = require('../utils/ExpressError');
-const AlbumSchema = require('../schemas/AlbumSchema');
+const {AlbumSchema} = require('../schemas/AlbumSchema');
 const {ArtistSchema} = require('../schemas/ArtistSchema');
 const ReviewSchema = require('../schemas/ReviewSchema');
 const Album = require('../models/AlbumModel');

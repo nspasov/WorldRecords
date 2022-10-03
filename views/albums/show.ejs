@@ -1,7 +1,82 @@
-<!-- <div class="row">
-    <div style="background-image: url('%= artist.photo %>');" class="container-fluid py-5">
-        <h1 style="color: white;" class="display-5 fw-bold">%= artist.name %></h1>
-        <p style="color: white;" class="col-md-8 fs-4">%= artist.description %></p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
-      </div>
-</div> -->
+<% layout('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+
+  
+
+    <div class="row">
+        <div class="col-6">
+
+            <div class="card mb-3">
+
+                <div class="card-body">
+                  <img class="card-img-top" src="<%= album.coverPhoto %>"> 
+                  <h1 class="card-title"><%= album.name %></h1>
+                  <!-- <p class="card-text"><= artist.description %></p> -->
+                </div>
+                <ul class="list-group list-group-flush">
+                  
+                  <li class="list-group-item text-muted"><a href="/artists/<%= album.artist._id%>"><%= album.artist.name %></a></li>
+                  <li class="list-group-item text-muted"><%= album.releaseYear %></li>
+                </ul>
+                <% if( currentUser && album.uploader.equals(currentUser._id)){ %>
+                  <div class="card-body">
+                    <a class="card-link btn btn-info" href="/albums/<%= album._id%>/edit">Edit</a>
+                    <form class="d-inline" action="/albums/<%= album._id %>?_method=DELETE" method="POST">
+                      <button class="btn btn-danger">Delete</button>
+                    </form>
+                  </div>   
+                <% } %>  
+              </div>
+              
+        </div>
+
+        <% if(sameArtistAlbums.length > 0){ %>
+
+        <div class="col-2">
+
+            <h6>Explore <br> <%= album.artist.name %></h5>
+            <div id="albumCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <% sameArtistAlbums.forEach((album, i) => { %> 
+                  <div class="carousel-item  <%= i === 0 ? 'active' : '' %>">
+                    
+                    <a href="/albums/<%= album._id %>"><img src="<%= album.coverPhoto %>" class="d-block w-100" alt="<%= album.name %> cover"></a>
+                  </div>
+                  <% }); %> 
+                </div>
+                <% if(sameArtistAlbums.length > 1){ %> 
+                <button class="carousel-control-prev" type="button" data-bs-target="#albumCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#albumCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+                <% } %> 
+              </div> 
+    
+
+        </div> 
+
+        <% } %>
+
+        <div class="col-4">
+          <iframe src="<%= album.youTubeLink %>"></iframe>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    
+
+
+

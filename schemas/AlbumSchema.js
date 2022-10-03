@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports.albumSchema = Joi.object({
+module.exports.AlbumSchema = Joi.object({
     album: Joi.object({
         name: Joi.string().required(),
         artist: Joi.string().required(),

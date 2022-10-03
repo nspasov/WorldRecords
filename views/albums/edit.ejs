@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %> 
+
+
+    <div class="row">
+        <h1 class="text-center"> Edit Album</h1>
+        <div class="col-6 offset-3">
+    
+            <form action="/albums/<%= album._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data"> 
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>      
+                    <input class="form-control" type="text" id="name" name="album[name]" required value="<%=album.name%>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="artist">Artist</label>      
+                    <select class="form-control" type="text" id="artist" name="album[artist]" required>
+                    <% for(let artist of artists){ %> 
+                        <option <%= album.artist._id.equals(artist._id) ? 'selected' : '' %> value="<%=artist._id%>"> <%=artist.name%> </option>
+                        <% } %> 
+                    </select>    
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="genre">Genre</label>      
+                    <select class="form-control" type="text" id="genre" name="album[genre]" required>
+                        <% for(let genre of genres){ %> 
+                            <option <%= album.genre === genre ? 'selected' : '' %> value="<%=genre%>"><%=genre%></option>
+                            <% } %>  
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="release-year">Release Year</label>      
+                    <input class="form-control" type="number" id="release-year" name="album[releaseYear]" value="<%=album.releaseYear%>" required> 
+                </div>
+                <input type="file" name="image" id="" required> 
+
+                <div class="mb-3">
+                    <button class="btn btn-info">Update Album</button>
+                </div>
+                
+            </form>
+            <a href="/albums/<%= album._id %>">Back to Album</a>
+        </div>
+    </div>
+
+<script>console.log('<%= album.artist._id %>');</script>
+
+    

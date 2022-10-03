@@ -38,7 +38,7 @@ const seedAlbums = async() => {
             genre: 'rock',
             releaseYear: 1973,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=hsr4PmeEocE&t=962s',
+            youTubeLink: 'https://www.youtube.com/embed/hsr4PmeEocE',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
         });
@@ -51,7 +51,7 @@ const seedAlbums = async() => {
             genre: 'rock',
             releaseYear: 1979,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=r48BLz42NuI&t=2524s',
+            youTubeLink: 'https://www.youtube.com/embed/r48BLz42NuI',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
     
@@ -65,7 +65,7 @@ const seedAlbums = async() => {
             genre: 'rock',
             releaseYear: 1977,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=D4KQae9oMWs',
+            youTubeLink: 'https://www.youtube.com/embed/D4KQae9oMWs',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
     
@@ -79,7 +79,7 @@ const seedAlbums = async() => {
             genre: 'rock',
             releaseYear: 2015,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=pGDxsQohs1w',
+            youTubeLink: 'https://www.youtube.com/embed/pGDxsQohs1w',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
     
@@ -93,7 +93,7 @@ const seedAlbums = async() => {
             genre: 'rock',
             releaseYear: 2013,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=njhyXl88k14',
+            youTubeLink: 'https://www.youtube.com/embed/njhyXl88k14',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
     
@@ -106,7 +106,7 @@ const seedAlbums = async() => {
             genre: 'jazz',
             releaseYear: 1959,
             reviews: [],
-            youTubeLink: 'https://www.youtube.com/watch?v=9B7ZWDaKECI',
+            youTubeLink: 'https://www.youtube.com/embed/9B7ZWDaKECI',
             reviewScore: 5,
             uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
         });

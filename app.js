@@ -62,7 +62,7 @@ app.use((req,res,next) => {
 
 
 app.use('/artists/', artistRoutes);
-//app.use('/albums/', albumRoutes);
+app.use('/albums/', albumRoutes);
 //app.use('/albums/:id/reviews', reviewRoutes);
 app.use('/', userRoutes);
 
