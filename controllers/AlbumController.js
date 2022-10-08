@@ -60,7 +60,6 @@ module.exports.showAlbum = async (req,res) => {
         const album = await albumService.findAlbum(id);
         const sameArtistAlbums = await albumService.findOtherAlbumsByArtist(album.artist._id, album._id);
         
-        log.info('same artist albums', sameArtistAlbums);
         res.render('albums/show', {album, sameArtistAlbums});
 
     }catch(err){

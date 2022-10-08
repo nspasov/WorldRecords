@@ -25,7 +25,12 @@ const createAlbum = async (body, uploaderId, file) => {
 const findAlbum = async(id) => {
         
 
-    const album = Album.findById(id).populate('uploader').populate('reviews').populate('artist');
+    const album = Album.findById(id).populate('uploader').populate('artist').populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    });
 
     if(album)
         return album;
@@ -56,6 +61,7 @@ const findOtherAlbumsByArtist = async (artistId, albumId) => {
 const editAlbum = async(id, body, file) => {
         
     const album = await Album.findByIdAndUpdate(id, body);
+    
     if(file)
         album.coverPhoto = file.path;
 

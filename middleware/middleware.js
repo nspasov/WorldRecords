@@ -1,7 +1,7 @@
 const ExpressError = require('../utils/ExpressError');
 const {AlbumSchema} = require('../schemas/AlbumSchema');
 const {ArtistSchema} = require('../schemas/ArtistSchema');
-const ReviewSchema = require('../schemas/ReviewSchema');
+const {ReviewSchema} = require('../schemas/ReviewSchema');
 const Album = require('../models/AlbumModel');
 const Artist = require('../models/ArtistModel');
 const Review = require('../models/ReviewModel');
@@ -48,6 +48,7 @@ module.exports.validateArtist = (req,res,next) => {
 module.exports.validateReview = (req,res,next) => {
 
     const result = ReviewSchema.validate(req.body);
+    
 
     if(result.error){
         const msg = result.error.details.map(el => el.message).join(',');
@@ -101,3 +102,5 @@ module.exports.isReviewUploader = async (req,res,next) => {
     next();
 
 }
+
+
