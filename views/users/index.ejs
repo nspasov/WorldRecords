@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') %>
+
+
+<% if(currentUser && currentUser._id.equals(user._id)){ %>
+    <p>You are the account owner</p>
+    <% } %>  
+<h1>User Page</h1>
+<h2><%= user.username %></h2>

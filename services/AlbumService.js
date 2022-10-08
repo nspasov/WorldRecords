@@ -1,4 +1,5 @@
 const Album = require('../models/AlbumModel');
+const Artist = require('../models/ArtistModel');
 const ReviewService = require('../services/ReviewService');
 const log = require('npmlog');
 
@@ -12,13 +13,16 @@ const upload = multer({storage});
 const createAlbum = async (body, uploaderId, file) => {
 
     const album = new Album(body);
+    log.info('boyd.artist', body.artist );
+    const artist = await Artist.findById(body.artist);
+    
     album.uploader = uploaderId;
-
+    artist.albums.push(album._id);
     if(file)
         album.coverPhoto = file.path;
         
     await album.save();
-
+    await artist.save();
     return album;
 }
 

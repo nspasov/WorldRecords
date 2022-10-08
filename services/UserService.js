@@ -47,9 +47,23 @@ const verifyRole = async (user, roleType) => {   // Maybe better idea is to move
 
 }
 
+const getUser = async (userId) => {
+
+    try{
+
+        const user = await User.findById(userId);
+        return user;
+
+    }catch(err){
+        log.error('Get User', err);
+    }
+
+}
+
 module.exports = {
     registerUser,
     assignRoleId,
     changeRole,
-    verifyRole
+    verifyRole,
+    getUser
 }

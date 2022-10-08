@@ -21,7 +21,7 @@ const createArtist = async (body, uploaderId, file) => {
     return artist;
 }
 
-const findArtist = async(id) => {
+const findArtist = async (id) => {
         
 
     const artist = Artist.findById(id).populate('uploader').populate('albums');
@@ -45,7 +45,7 @@ const findAllArtists = async () => {
         
 }
 
-const editArtist = async(id, body, file) => {
+const editArtist = async (id, body, file) => {
         
     const artist = await Artist.findByIdAndUpdate(id, body);
     if(file)

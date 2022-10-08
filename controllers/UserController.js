@@ -3,6 +3,14 @@ const Role = require('../models/RoleModel');
 const UserService = require('../services/UserService');
 const log = require('npmlog');
 
+module.exports.index = async(req, res) => {
+
+    const user = await UserService.getUser(req.params.id);
+
+    res.render('users/index', {user});
+
+}
+
 module.exports.renderLoginForm = (req,res) => {
     res.render('users/login');
 }

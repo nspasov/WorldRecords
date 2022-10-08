@@ -6,6 +6,8 @@ const userController = require('../controllers/UserController');
 const catchAsync = require('../utils/CatchAsync');
 
 
+
+
 router.get('/register', userController.renderRegisterForm);
 
 router.post('/register', catchAsync(userController.register));
@@ -15,6 +17,10 @@ router.get('/login', userController.renderLoginForm);
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), userController.login);
 
 router.get('/logout', userController.logout);
+
+router.get('/:id', catchAsync(userController.index));
+
+
 
 
 module.exports = router;
