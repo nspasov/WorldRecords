@@ -64,7 +64,7 @@ app.use((req,res,next) => {
 app.use('/artists', artistRoutes);
 app.use('/albums', albumRoutes);
 app.use('/albums/:id/reviews', reviewRoutes);
-app.use('/', userRoutes);
+app.use('/users/', userRoutes);
 
 app.get('/', async (req,res) => {
     res.render('home', {req});

@@ -1,8 +1,16 @@
 <% layout('layouts/boilerplate') %>
 
 
+<img src="<%=user.avatar%>">
+
 <% if(currentUser && currentUser._id.equals(user._id)){ %>
     <p>You are the account owner</p>
+
+    <img src="<%=user.avatar%>">
+    <form>
+        
+    </form>
+
     <% } %>  
 <h1>User Page</h1>
 <h2><%= user.username %></h2>
