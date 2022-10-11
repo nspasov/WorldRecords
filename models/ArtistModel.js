@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ImageSchema = new Schema({
-    url: String,
-    filename: String
-});
-
-const ArtistSchema = new Schema({
+const ArtistModel = new Schema({
     name: {
         type: String,
         required: true
@@ -32,4 +27,4 @@ const ArtistSchema = new Schema({
     
 });
 
-module.exports = mongoose.model('Artist', ArtistSchema);
+module.exports = mongoose.model('Artist', ArtistModel);

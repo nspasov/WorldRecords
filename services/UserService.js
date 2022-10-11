@@ -11,6 +11,22 @@ const registerUser = async (email, username, password) => {
 
 }
 
+const editUser = async (id, body, file) => {
+
+    const user = await User.findByIdAndUpdate(id, body);
+
+    if(file)
+        user.avatar = file.path;
+    
+    if(user){
+        await user.save();
+        return user;
+    }
+
+    throw new ExpressError('User not found', 400); 
+
+}
+
 const assignRoleId = async (roleType) => {
 
     try{     
@@ -51,7 +67,7 @@ const getUser = async (userId) => {
 
     try{
 
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).populate('role');
         return user;
 
     }catch(err){
@@ -62,6 +78,7 @@ const getUser = async (userId) => {
 
 module.exports = {
     registerUser,
+    editUser,
     assignRoleId,
     changeRole,
     verifyRole,

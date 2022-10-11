@@ -19,9 +19,42 @@ module.exports.renderRegisterForm = (req, res) => {
     res.render('users/register');
 }
 
+module.exports.renderEditForm = async (req, res) => {
+    const user = await UserService.getUser(req.params.id);
+    //const isSuperAdmin = ''
+    res.render('users/edit', {user});
+}
+
+module.exports.editUser = async (req, res) => {
+
+    const id = req.params.id;
+
+    try{
+
+        const file = req.file;
+        const user = await UserService.editUser(id, {...req.body.user}, file);
+        req.flash('Success', 'User succesfully updated');
+        res.redirect(`/users/${id}`);
+
+    }catch(err){
+        log.error('error', err);
+        req.flash('error', 'Error editing user');
+        res.redirect(`/users/${id}`);
+    }
+
+}
+
 module.exports.login = (req, res) => {
-    req.flash('success', `Welcome back, ${req.user.username}`);
-    res.redirect('/');
+    try{
+
+        req.flash('success', `Welcome back, ${req.user.username}`);
+        res.redirect('/');
+
+    }catch (err){
+        req.flash('error', 'Ivalid credentials');
+        res.redirect('/users/login');
+    }
+    
 }
 
 module.exports.register = async (req, res, next) => {

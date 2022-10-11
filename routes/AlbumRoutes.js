@@ -6,7 +6,7 @@ const Album = require('../models/AlbumModel');
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({storage});
-const {isLoggedIn, isAlbumUploader, validateAlbum} = require('../middleware/middleware');
+const { isLoggedIn, isAlbumUploader, validateAlbum } = require('../middleware/middleware');
 const log = require('npmlog');
 
 

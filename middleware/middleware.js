@@ -1,10 +1,12 @@
 const ExpressError = require('../utils/ExpressError');
-const {AlbumSchema} = require('../schemas/AlbumSchema');
-const {ArtistSchema} = require('../schemas/ArtistSchema');
-const {ReviewSchema} = require('../schemas/ReviewSchema');
+const { AlbumSchema } = require('../schemas/AlbumSchema');
+const { ArtistSchema } = require('../schemas/ArtistSchema');
+const { ReviewSchema } = require('../schemas/ReviewSchema');
+const { UserSchema } = require('../schemas/UserSchema');
 const Album = require('../models/AlbumModel');
 const Artist = require('../models/ArtistModel');
 const Review = require('../models/ReviewModel');
+const User = require('../models/UserModel');
 const log = require('npmlog');
 
 
@@ -59,6 +61,19 @@ module.exports.validateReview = (req,res,next) => {
 
 }
 
+module.exports.validateUser = async (req, res, next) => {
+
+    const result = UserSchema.validate(req.body);
+
+    if(result.error){
+        const msg = result.error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    }else{
+        next();
+    }
+    
+}
+
 module.exports.isAlbumUploader =  async (req,res,next) => {
 
     const id = req.params.id;
@@ -102,5 +117,25 @@ module.exports.isReviewUploader = async (req,res,next) => {
     next();
 
 }
+
+module.exports.isAuthorized = async (req,res,next) => {
+
+    const id = req.params.id;
+    const user = await User.findById(id).populate('role');
+    const currentUser = req.user;
+
+    log.info('current user', currentUser);
+    log.info('user', user);
+
+    if(user.role !== 'super admin' && !currentUser._id.equals(user._id)){
+        req.flash('error', 'No permission');
+        return res.redirect(`/`);
+    }
+
+    next();
+
+}
+
+
 
 

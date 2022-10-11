@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const RoleSchema = new Schema({
+const RoleModel = new Schema({
     roleType: {
         type: String,
         enum: ['user', 'admin', 'super admin'],
@@ -10,6 +10,6 @@ const RoleSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Role', RoleSchema);
+module.exports = mongoose.model('Role', RoleModel);
 
 
