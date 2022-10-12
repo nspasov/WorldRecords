@@ -1,13 +1,18 @@
 const User = require('../models/UserModel');
 const Role = require('../models/RoleModel');
 const UserService = require('../services/UserService');
+const RoleService = require('../services/RoleService');
 const log = require('npmlog');
 
 module.exports.index = async(req, res) => {
 
     const user = await UserService.getUser(req.params.id);
+    let loggedUserRole;
+    if(req.user){
+        loggedUserRole = await RoleService.findRole(req.user.role._id);
+    } 
 
-    res.render('users/index', {user});
+    res.render('users/index', {user, loggedUserRole});
 
 }
 
@@ -20,9 +25,10 @@ module.exports.renderRegisterForm = (req, res) => {
 }
 
 module.exports.renderEditForm = async (req, res) => {
+
     const user = await UserService.getUser(req.params.id);
-    //const isSuperAdmin = ''
-    res.render('users/edit', {user});
+    const loggedUserRole = await RoleService.findRole(req.user.role._id);
+    res.render('users/edit', {user, loggedUserRole});
 }
 
 module.exports.editUser = async (req, res) => {
@@ -30,7 +36,7 @@ module.exports.editUser = async (req, res) => {
     const id = req.params.id;
 
     try{
-
+        
         const file = req.file;
         const user = await UserService.editUser(id, {...req.body.user}, file);
         req.flash('Success', 'User succesfully updated');

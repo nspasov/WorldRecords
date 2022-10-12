@@ -30,7 +30,4 @@ router.put('/:id', isLoggedIn, isAuthorized, upload.single('image'), validateUse
 
 
 
-
-
-
 module.exports = router;

@@ -26,7 +26,7 @@ const createAlbum = async (body, uploaderId, file) => {
     return album;
 }
 
-const findAlbum = async(id) => {
+const findAlbum = async (id) => {
         
 
     const album = Album.findById(id).populate('uploader').populate('artist').populate({
@@ -62,7 +62,7 @@ const findOtherAlbumsByArtist = async (artistId, albumId) => {
     return albums;
 }
 
-const editAlbum = async(id, body, file) => {
+const editAlbum = async (id, body, file) => {
         
     const album = await Album.findByIdAndUpdate(id, body);
     
@@ -95,7 +95,7 @@ const deleteAlbum = async (id) => {
 }
 
 
-const deleteAlbumsByArtist = async(artistId) =>{
+const deleteAlbumsByArtist = async (artistId) =>{
 
     try{
 
@@ -116,7 +116,7 @@ const deleteAlbumsByArtist = async(artistId) =>{
 
 }
 
-const deleteAlbumReviews = async(relatedReviews) => {
+const deleteAlbumReviews = async (relatedReviews) => {
 
     relatedReviews.forEach(async (review) => {
        await ReviewService.deleteReview(review._id);

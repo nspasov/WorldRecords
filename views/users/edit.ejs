@@ -18,10 +18,11 @@
            
             <div class="mb-3">
                 <label for="avatar" class="form-label">Avatar: </label>
-                <input type="file" name="image" id="avatar" required> 
+                <input type="file" name="image" id="avatar"> 
             </div>
 
-            <% if(isSuperAdmin === 'super admin'){ %>
+
+            <% if(loggedUserRole.roleType === 'super admin'){ %>
 
                     <p>Change role</p>
                 

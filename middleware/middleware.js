@@ -63,6 +63,8 @@ module.exports.validateReview = (req,res,next) => {
 
 module.exports.validateUser = async (req, res, next) => {
 
+    log.info('Validate user middleware');
+
     const result = UserSchema.validate(req.body);
 
     if(result.error){
@@ -120,14 +122,13 @@ module.exports.isReviewUploader = async (req,res,next) => {
 
 module.exports.isAuthorized = async (req,res,next) => {
 
+    log.info('IsAuthorized middleware')
+
     const id = req.params.id;
     const user = await User.findById(id).populate('role');
-    const currentUser = req.user;
+    const currentUser = await User.findById(req.user._id).populate('role');
 
-    log.info('current user', currentUser);
-    log.info('user', user);
-
-    if(user.role !== 'super admin' && !currentUser._id.equals(user._id)){
+    if(currentUser.role.roleType !== 'super admin' && !currentUser._id.equals(user._id)){
         req.flash('error', 'No permission');
         return res.redirect(`/`);
     }

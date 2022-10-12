@@ -4,8 +4,8 @@ const log = require('npmlog');
 
 const registerUser = async (email, username, password) => {
 
-    const roleId = await assignRoleId('user');
-    const user = new User({email, username, roleId});         
+    const role = await assignRole('user');
+    const user = new User({email, username, role});         
     const registeredUser = await User.register(user, password);
     return registeredUser;
 
@@ -27,11 +27,11 @@ const editUser = async (id, body, file) => {
 
 }
 
-const assignRoleId = async (roleType) => {
+const assignRole = async (roleType) => {
 
     try{     
         const role = await Role.findOne({roleType: roleType});
-        return role._id;
+        return role;
     }catch (err){
         log.error('Assign Role Id', err);
     }
@@ -79,7 +79,7 @@ const getUser = async (userId) => {
 module.exports = {
     registerUser,
     editUser,
-    assignRoleId,
+    assignRole,
     changeRole,
     verifyRole,
     getUser
