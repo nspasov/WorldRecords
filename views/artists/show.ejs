@@ -19,7 +19,7 @@
                   <li class="list-group-item text-muted">Added by: <%= artist.uploader.username %></li>
                   
                 </ul>
-                <% if( currentUser && artist.uploader.equals(currentUser._id)){ %>
+                <% if((loggedUserRole && (loggedUserRole.roleType === 'admin' || loggedUserRole.roleType === 'super admin')) || (currentUser && artist.uploader.equals(currentUser._id))){ %>
                   <div class="card-body">
                     <a class="card-link btn btn-info" href="/artists/<%= artist._id%>/edit">Edit</a>
                     <form class="d-inline" action="/artists/<%= artist._id %>?_method=DELETE" method="POST">
@@ -31,6 +31,7 @@
               
         </div>
 
+        <% if(artist.albums.length > 0){ %> 
         <div class="col-3">
 
           <div class="card mb-3">
@@ -60,10 +61,8 @@
             </div>
           </div>
 
-
-    
-
         </div>
+        <% } %> 
 
     </div>
 

@@ -6,7 +6,7 @@ const Artist = require('../models/ArtistModel');
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({storage});
-const {isLoggedIn, isArtistUploader, validateArtist} = require('../middleware/middleware');
+const {isLoggedIn, isArtistUploaderOrAdmin, validateArtist} = require('../middleware/middleware');
 const log = require('npmlog');
 
 
@@ -18,13 +18,10 @@ router.post('/', isLoggedIn, upload.single('image'), validateArtist, catchAsync(
 
 router.get('/:id', artistController.showArtist);
 
-router.get('/:id/edit', isLoggedIn, isArtistUploader, catchAsync(artistController.renderEditForm));
+router.get('/:id/edit', isLoggedIn, isArtistUploaderOrAdmin, catchAsync(artistController.renderEditForm));
 
-//router.put('/:id', isLoggedIn, isArtistUploader, upload.single('image'), validateArtist, catchAsync(artistController.editArtist));
+router.put('/:id',  isLoggedIn, isArtistUploaderOrAdmin,upload.single('image'), validateArtist, catchAsync(artistController.editArtist));
 
-router.put('/:id',  isLoggedIn, isArtistUploader,upload.single('image'), validateArtist, catchAsync(artistController.editArtist));
-
-
-router.delete('/:id', isLoggedIn, isArtistUploader, catchAsync(artistController.deleteArtist));
+router.delete('/:id', isLoggedIn, isArtistUploaderOrAdmin, catchAsync(artistController.deleteArtist));
 
 module.exports = router;

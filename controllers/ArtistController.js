@@ -5,6 +5,7 @@ const { cloudinary } = require('../cloudinary');
 const { isLoggedIn, isArtistUploader, validateArtist } = require('../middleware/middleware');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const artistService = require('../services/ArtistService');
+const RoleService = require('../services/RoleService');
 const log = require('npmlog');
 
 module.exports.index = async (req,res) => {
@@ -21,7 +22,7 @@ module.exports.index = async (req,res) => {
 
 }
 
-module.exports.renderNewForm = (req,res) => {
+module.exports.renderNewForm = async (req,res) => {
 
     res.render('artists/new');
     
@@ -54,10 +55,12 @@ module.exports.showArtist = async (req,res) => {
     try{
 
         const id = req.params.id;
-
+        let loggedUserRole;
         const artist = await artistService.findArtist(id);
+        if(req.user)
+            loggedUserRole = await RoleService.findRole(req.user.role._id);
 
-        res.render('artists/show', {artist});
+        res.render('artists/show', {artist, loggedUserRole});
 
     }catch(err){
         log.error(err);

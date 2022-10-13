@@ -3,6 +3,7 @@ const { AlbumSchema } = require('../schemas/AlbumSchema');
 const { ArtistSchema } = require('../schemas/ArtistSchema');
 const { ReviewSchema } = require('../schemas/ReviewSchema');
 const { UserSchema } = require('../schemas/UserSchema');
+const RoleService = require('../services/RoleService');
 const Album = require('../models/AlbumModel');
 const Artist = require('../models/ArtistModel');
 const Review = require('../models/ReviewModel');
@@ -76,13 +77,14 @@ module.exports.validateUser = async (req, res, next) => {
     
 }
 
-module.exports.isAlbumUploader =  async (req,res,next) => {
+module.exports.isAlbumUploaderOrAdmin =  async (req,res,next) => {
 
     const id = req.params.id;
 
     const album = await Album.findById(id);
+    const loggedUserRole = await RoleService.findRole(req.user.role._id);
 
-    if(!album.uploader.equals(req.user._id)){
+    if(!album.uploader.equals(req.user._id) && loggedUserRole.roleType !== 'admin' && loggedUserRole.roleType !== 'super admin'){
         req.flash('error', 'No permission');
         return res.redirect(`/albums/${id}`);
     }
@@ -91,15 +93,16 @@ module.exports.isAlbumUploader =  async (req,res,next) => {
 
 }
 
-module.exports.isArtistUploader = async (req,res,next) => {
+module.exports.isArtistUploaderOrAdmin = async (req,res,next) => {
 
     log.info('Request Body is uploader', req.body);
 
     const id = req.params.id;
 
     const artist = await Artist.findById(id);
+    const loggedUserRole = await RoleService.findRole(req.user.role._id);
 
-    if(!artist.uploader.equals(req.user._id)){
+    if(!artist.uploader.equals(req.user._id) && loggedUserRole.roleType !== 'admin' && loggedUserRole.roleType !== 'super admin'){
         req.flash('error', 'No permission');
         return res.redirect(`/artists/${id}`);
     }
@@ -108,11 +111,12 @@ module.exports.isArtistUploader = async (req,res,next) => {
 
 }
 
-module.exports.isReviewUploader = async (req,res,next) => {
+module.exports.isReviewUploaderOrAdmin = async (req,res,next) => {
 
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
-    if(!review.author.equals(req.user._id)){
+    const loggedUserRole = await RoleService.findRole(req.user.role._id);
+    if(!review.author.equals(req.user._id) && loggedUserRole.roleType !== 'admin' && loggedUserRole.roleType !== 'super admin'){
         req.flash('error', 'No permission');
         return res.redirect(`/albums/${id}`);
     }
@@ -122,7 +126,6 @@ module.exports.isReviewUploader = async (req,res,next) => {
 
 module.exports.isAuthorized = async (req,res,next) => {
 
-    log.info('IsAuthorized middleware')
 
     const id = req.params.id;
     const user = await User.findById(id).populate('role');

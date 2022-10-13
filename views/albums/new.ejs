@@ -30,6 +30,12 @@
                 <label class="form-label" for="name">Release Year</label>      
                 <input class="form-control" type="number" id="name" name="album[releaseYear]" required>
             </div>
+            <% if(loggedUserRole && (loggedUserRole.roleType === 'admin' || loggedUserRole.roleType === 'super admin')){ %> 
+                <div class="mb-3">
+                    <label class="form-label" for="name">youTube Link</label>      
+                    <input class="form-control" type="text" id="name" name="album[youTubeLink]">
+                </div>
+            <% } %> 
             <input type="file" name="image" id="" required> 
 
 

@@ -6,6 +6,7 @@ const { isLoggedIn, isArtistUploader, validateArtist } = require('../middleware/
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const albumService = require('../services/AlbumService');
 const artistService = require('../services/ArtistService');
+const RoleService = require('../services/RoleService');
 const log = require('npmlog');
 
 module.exports.index = async (req,res) => {
@@ -25,8 +26,9 @@ module.exports.index = async (req,res) => {
 module.exports.renderNewForm = async (req,res) => {
 
     const artists = await artistService.findAllArtists();
+    const loggedUserRole = await RoleService.findRole(req.user.role._id);
     const genres = ['rock', 'jazz', 'blues', 'folk', 'country', 'pop', 'hip-hop', 'soul', 'funk', 'punk'];
-    res.render('albums/new', {artists, genres});
+    res.render('albums/new', {artists, genres, loggedUserRole});
     
 }
 
@@ -59,8 +61,13 @@ module.exports.showAlbum = async (req,res) => {
         const id = req.params.id;
         const album = await albumService.findAlbum(id);
         const sameArtistAlbums = await albumService.findOtherAlbumsByArtist(album.artist._id, album._id);
+        let loggedUserRole;
         
-        res.render('albums/show', {album, sameArtistAlbums});
+        if(req.user){
+            loggedUserRole = await RoleService.findRole(req.user.role._id);
+        } 
+
+        res.render('albums/show', {album, sameArtistAlbums, loggedUserRole});
 
     }catch(err){
         log.error(err);
@@ -75,11 +82,10 @@ module.exports.renderEditForm = async (req,res) => {
 
         const id = req.params.id;
         const album = await albumService.findAlbum(id);
-
         const artists = await artistService.findAllArtists();
         const genres = ['rock', 'jazz', 'blues', 'folk', 'country', 'pop', 'hip-hop', 'soul', 'funk', 'punk'];
-
-        res.render('albums/edit', {album, artists, genres});
+        const loggedUserRole = await RoleService.findRole(req.user.role._id);
+        res.render('albums/edit', {album, artists, genres, loggedUserRole});
 
     }catch(err){
 
