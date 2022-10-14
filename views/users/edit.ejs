@@ -21,14 +21,13 @@
                 <input type="file" name="image" id="avatar"> 
             </div>
 
-
             <% if(loggedUserRole.roleType === 'super admin'){ %>
 
                     <div class="mb-3">
                         <label for="role" class="form-label">Change Role</label>
                         <select name="user[role]" id="role">
                             <% for(let role of roles){ %> 
-                                <option value="<%=role._id%>"><%=role.roleType%></option>
+                                <option <%= user.role._id.equals(role._id) ? 'selected' : '' %> value="<%=role._id%>"><%=role.roleType%></option>
                                 <% } %> 
                         </select>
                     </div>
