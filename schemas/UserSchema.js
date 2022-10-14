@@ -4,6 +4,7 @@ module.exports.UserSchema = Joi.object({
     user: Joi.object({
         avatar: Joi.string(),
         email: Joi.string().required(),
-        bio: Joi.string()
+        bio: Joi.string(),
+        role: Joi.string()
     }).required()
 });

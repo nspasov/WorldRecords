@@ -28,7 +28,8 @@ module.exports.renderEditForm = async (req, res) => {
 
     const user = await UserService.getUser(req.params.id);
     const loggedUserRole = await RoleService.findRole(req.user.role._id);
-    res.render('users/edit', {user, loggedUserRole});
+    const roles = await RoleService.getAllRoles();
+    res.render('users/edit', {user, loggedUserRole, roles});
 }
 
 module.exports.editUser = async (req, res) => {
@@ -38,7 +39,7 @@ module.exports.editUser = async (req, res) => {
     try{
         
         const file = req.file;
-        const user = await UserService.editUser(id, {...req.body.user}, file);
+        await UserService.editUser(id, {...req.body.user}, file);
         req.flash('Success', 'User succesfully updated');
         res.redirect(`/users/${id}`);
 

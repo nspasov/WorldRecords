@@ -38,7 +38,11 @@
                         <input class="form-control" type="text" id="name" name="album[youTubeLink]" value="<%=album.youTubeLink%>">
                     </div>
                 <% } %> 
-                <input type="file" name="image" id=""> 
+                <div class="mb-3">
+                    <label for="album-cover" class="form-label">Album Cover</label>
+                    <input type="file" name="image" id="album-cover"> 
+                </div>
+                
 
                 <div class="mb-3">
                     <button class="btn btn-info">Update Album</button>

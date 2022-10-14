@@ -14,7 +14,11 @@
                     <label class="form-label" for="description">Description</label>      
                     <textarea class="form-control" type="text" id="description" name="artist[description]" required><%= artist.description %></textarea>
                 </div>
-                <input type="file" name="image" id="">
+                <div class="mb-3">
+                    <label for="artist-photo" class="form-label"></label>
+                    <input type="file" name="image" id="artist-photo">
+                </div>
+
                 <div class="mb-3">
                     <button class="btn btn-info">Update Artist</button>
                 </div>

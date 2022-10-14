@@ -36,9 +36,11 @@
                     <input class="form-control" type="text" id="name" name="album[youTubeLink]">
                 </div>
             <% } %> 
-            <input type="file" name="image" id="" required> 
-
-
+            <div class="mb-3">
+                <label for="album-cover" class="form-control"></label>
+                <input type="file" name="image" id="album-cover"> 
+            </div>
+            
             <div class="mb-3">
                 <button class="btn btn-success">Add Album</button>
             </div>

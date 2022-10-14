@@ -24,7 +24,14 @@
 
             <% if(loggedUserRole.roleType === 'super admin'){ %>
 
-                    <p>Change role</p>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Change Role</label>
+                        <select name="user[role]" id="role">
+                            <% for(let role of roles){ %> 
+                                <option value="<%=role._id%>"><%=role.roleType%></option>
+                                <% } %> 
+                        </select>
+                    </div>
                 
                 <% } %> 
             
