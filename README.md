@@ -93,9 +93,9 @@
 
 	6. In the terminal open the mongo (type mongo) shell and run the following queries:
  
-		 use WorldRecords
-		 db.roles.find({})
-		 db.users.find({})
+		1. use WorldRecords
+		2. db.roles.find({})
+		3. db.users.find({})
 
 	7. If seeding was successful you will see the three roles there. Copy the _id of the role with roleType: "super admin" You will now use it to change the role of the user you registered. To do so in the mongo shell type the following query:
 
