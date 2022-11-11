@@ -79,23 +79,23 @@
 
 	3. In the terminal run the following command, this will seed the roles in the database:
 
-		* node seeds/RoleSeeds.js
+		 node seeds/RoleSeeds.js
 
 	4. Run the application with the following command:
 
-		* nodemon app.js
+		 nodemon app.js
 
 	4.1. In case nodemon is not installed use the following command:
 
-		* node app.js
+		 node app.js
 
 	5. In app navigate to the Register page and create an account. By default the account will be created with the role of User. You will want to change the role to super admin. You will need to get the _id of both the user and role
 
 	6. In the terminal open the mongo (type mongo) shell and run the following queries:
  
-		1. use WorldRecords
-		2. db.roles.find({})
-		3. db.users.find({})
+		 use WorldRecords
+		 db.roles.find({})
+		 db.users.find({})
 
 	7. If seeding was successful you will see the three roles there. Copy the _id of the role with roleType: "super admin" You will now use it to change the role of the user you registered. To do so in the mongo shell type the following query:
 
