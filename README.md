@@ -79,33 +79,29 @@
 
 	3. In the terminal run the following command, this will seed the roles in the database:
 
-		 node seeds/RoleSeeds.js
+		 'node seeds/RoleSeeds.js'
 
 	4. Run the application with the following command:
 
-		 nodemon app.js
-
-	4.1. In case nodemon is not installed use the following command:
-
-		 node app.js
+		 'node app.js'
 
 	5. In app navigate to the Register page and create an account. By default the account will be created with the role of User. You will want to change the role to super admin. You will need to get the _id of both the user and role
 
 	6. In the terminal open the mongo (type mongo) shell and run the following queries:
  
-		 use WorldRecords
-		 db.roles.find({})
-		 db.users.find({})
+		 'use WorldRecords'
+		 'db.roles.find({})'
+		 'db.users.find({})'
 
-	7. If seeding was successful you will see the three roles there. Copy the _id of the role with roleType: "super admin" You will now use it to change the role of the user you registered. To do so in the mongo shell type the following query:
+	7. If seeding was successful you will see the three roles there. Copy the _id of the role with roleType: "super admin" You will now use it to change the role of the user you registered. To do so in the mongo shell type the following query but replace the placeholders with actual values:
 
-		* db.users.update({_id : "_ID OF THE USER YOU CREATED"}, {$set: {role: "_ID OF THE SUPER ADMIN ROLE"}})
+		 'db.users.update({_id : "_ID OF THE USER YOU CREATED"}, {$set: {role: "_ID OF THE SUPER ADMIN ROLE"}})'
 
 	8. Now it is time for seeding artists and albums. To do that you will first need to open both files: seeds/ArtistSeeds.js and seeds/AlbumSeeds.js and will need to replace the value of const uploaderId with the _id of the user you registered. You need only the UUID section: ex. '636e9c1c2da0f0fa11ba7938'
 
 	9. Next you need to run the following commands in your terminal. This will seed the rest of the database.
 	
-		1. node seeds/ArtistSeeds.js
-		2. node seeds/AlbumSeeds.js
+		 'node seeds/ArtistSeeds.js'
+		 'node seeds/AlbumSeeds.js'
 
 	10. Have fun :) 
