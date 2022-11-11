@@ -69,6 +69,7 @@
 	2. In the terminal run the following command: 'npm install'
 
 	3. Create .env file with the following structure:
+		
 		MONGO_PORT={ enter your mongo port }
 		SERVER_PORT={ enter the port on which the server will be listening }
 		CLOUDINARY_CLOUD_NAME={enter a cloudinary cloud name }
