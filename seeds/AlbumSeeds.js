@@ -18,6 +18,7 @@ const seedAlbums = async() => {
     let stevenWilsonId;
     let milesDavisId;
     let kidCudiId;
+    const uploaderId = '636e9c1c2da0f0fa11ba7938'; // Replace with existing UserID
 
     try{
 
@@ -40,7 +41,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/hsr4PmeEocE',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId   
         });
     
         const theWall = new Album({
@@ -53,7 +54,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/r48BLz42NuI',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
     
         });
     
@@ -67,7 +68,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/D4KQae9oMWs',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
     
         });
     
@@ -81,7 +82,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/pGDxsQohs1w',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
     
         });
     
@@ -95,7 +96,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/njhyXl88k14',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
     
         });
 
@@ -108,7 +109,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: 'https://www.youtube.com/embed/9B7ZWDaKECI',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
         });
 
         const motm = new Album({
@@ -120,7 +121,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: '',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
         });
 
         const motm2 = new Album({
@@ -132,7 +133,7 @@ const seedAlbums = async() => {
             reviews: [],
             youTubeLink: '',
             reviewScore: 5,
-            uploader: '6300cbd3dccfdad82a1812fe'   // Replace with existing UserID
+            uploader: uploaderId 
         });
                
         await darkSide.save();

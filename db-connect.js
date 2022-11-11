@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const log = require('npmlog');
 
 const connectDb = function(port){
-    mongoose.connect(`mongodb://localhost:${port}/music`, {
+    mongoose.connect(`mongodb://localhost:${port}/WorldRecords`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
